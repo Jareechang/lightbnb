@@ -8,3 +8,20 @@ This is a fork of [LHL LightBnB_WebApp](https://github.com/lighthouse-labs/Light
 - Integrate [@common-web/ts-config@1.0.1](https://www.npmjs.com/package/@common-web/ts-config) for typescript 
 - Moved `entry` from `index.js` to `index.ts`
 - Updated the local scripts `build`, `start`, `start:watch`
+
+
+## Getting Started
+
+```sh
+// static mode 
+yarn build && yarn start
+or
+npm build && npm start
+```
+
+```
+// watch mode 
+yarn start:watch
+or
+npm start:watch
+```

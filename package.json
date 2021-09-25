@@ -16,7 +16,7 @@
   "scripts": {
     "build": "node ./build.js",
     "start": "yarn build && node dist/index.js",
-    "start:watch": "npx nodemon --ext ts,js --watch src --exec \"yarn start\""
+    "start:watch": "npx nodemon --ext ts,js --watch src/server --exec \"yarn start\""
   },
   "devDependencies": {
     "@common-web/ts-config": "^1.0.1",

@@ -1,10 +1,22 @@
-const { Pool } = require('pg');
+import * as pg from 'pg';
+import { Pool } from 'pg';
 
-class Database {
-  private pool : any;
-  constructor() {
-    this.pool = null;
-  }
+interface IDatabase {
+  configure() : void;
+
+  /*
+   * Query for pg
+   *
+   * **/
+  query<T = any>(
+    sql: string,
+    params: string[]
+  ) : Promise<pg.QueryResult<T>>;
+}
+
+class Database implements IDatabase {
+  private pool : pg.Pool;
+
   public configure() {
     this.pool = new Pool({
       user: process.env.DB_USERNAME,
@@ -13,7 +25,11 @@ class Database {
       database: process.env.DB_NAME
     });
   }
-  public query(sql: string, params: string[]) {
+
+  public query<T = any>(
+    sql: string,
+    params: string[]
+  ) : Promise<pg.QueryResult<T>> {
     return this.pool.query(sql, params);
   }
 }

@@ -2,7 +2,8 @@
   "extends": "./node_modules/@common-web/ts-config/tsconfig.base.json",
   "compilerOptions": {
     "noEmit": true,
-    "allowJs": true
+    "allowJs": true,
+    "strictPropertyInitialization": false
   },
   "include": [
     "./src/**/*.ts",

@@ -34,7 +34,6 @@ class UserService {
     id: string
   ) : Promise<Maybe<User>> {
     const user : Maybe<User> = await this.userDao.getById(id);
-    console.log('UserService.getById: ', user);
     return removeUserPasswordField(user);
   }
 

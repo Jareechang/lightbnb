@@ -14,9 +14,10 @@ import {
 import { Database } from '@app/server/database';
 import { createServices } from '@app/server/services';
 import { createDataAccessInstances } from '@app/server/database/dao';
+import { userRoutes } from '@app/server/routes';
+
 import database from './mockDatabase';
 import apiRoutes from './apiRoutes';
-import userRoutes from './userRoutes';
 
 // Configure environment
 const { parsed: config } = dotenv.config();
@@ -43,7 +44,7 @@ app.use('/api', apiRouter);
 
 // /user/endpoints
 const userRouter : Express.Router = express.Router();
-userRoutes(userRouter, database, services);
+userRoutes(userRouter, services);
 app.use('/users', userRouter);
 
 app.use(express.static(path.join(__dirname, './public')));

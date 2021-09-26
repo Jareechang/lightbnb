@@ -20,6 +20,30 @@ class UserDataAccess implements IUserDataAccessInstance {
    * @param {String} email - user’s email
    *
    * **/
+  public async create(
+    name: string,
+    email: string,
+    password: string
+  ) : Promise<Maybe<User>> {
+    let user : Maybe<User> = null;
+    try {
+      const { rows } = await this.database.query(
+        sql.createUser,
+        [name, email, password]
+      );
+      return rows[0];
+    } catch (error) {
+      console.error('UserDataAccess.create failed : ', error);
+    }
+    return user;
+  }
+
+  /*
+   * Get user by their email
+   *
+   * @param {String} email - user’s email
+   *
+   * **/
   public async getByEmail(
     email: string
   ) : Promise<Maybe<User>> {

@@ -25,6 +25,25 @@ export const withUserServices = (
 export class UserController {
   private userService: UserService;
 
+  public async signUp(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
+    const { name, email, password } = req.body;
+    const user : Maybe<User> = await this.userService.signUp(
+      name,
+      email,
+      password,
+    );
+    if (!user) {
+      return res.status(401).json({
+        message: 'Failed to authenticate'
+      });
+    }
+    return res.status(200).json(user);
+  }
+
   public async login(
     req: Express.Request,
     res: Express.Response,

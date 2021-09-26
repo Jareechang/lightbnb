@@ -1,9 +1,9 @@
 import {
   Maybe,
   User,
-  UserDataOptions,
   IUserDataAccessInstance,
 } from '@app/types';
+import bcrypt from 'bcrypt';
 import {
   isPasswordValid,
   removeUserPasswordField,
@@ -16,13 +16,25 @@ class UserService {
     this.userDao = userDao;
   }
 
+  public async signUp(
+    name: string,
+    email: string,
+    password: string
+  ) : Promise<Maybe<User>> {
+    const encryptedPassword : string = bcrypt.hashSync(password, 12);
+    const user : Maybe<User> = await this.userDao.create(
+      name,
+      email,
+      encryptedPassword
+    );
+    return user;
+  }
+
   public async login(
     email: string,
     password: string
   ) : Promise<Maybe<User>> {
-    const user : Maybe<User> = await this.findUser(email, {
-      includePassword: true
-    });
+    const user : Maybe<User> = await this.userDao.getByEmail(email);
     const userPassword : string = user?.password ?? '';
     if (isPasswordValid(password, userPassword)) {
       return removeUserPasswordField(user);
@@ -34,20 +46,6 @@ class UserService {
     id: string
   ) : Promise<Maybe<User>> {
     const user : Maybe<User> = await this.userDao.getById(id);
-    return removeUserPasswordField(user);
-  }
-
-  /*
-   *
-   * **/
-  private async findUser(
-    email: string,
-    options: UserDataOptions = {
-      includePassword: false
-    }
-  ) : Promise<Maybe<User>> {
-    const user : Maybe<User> = await this.userDao.getByEmail(email);
-    if (options?.includePassword) return user;
     return removeUserPasswordField(user);
   }
 }

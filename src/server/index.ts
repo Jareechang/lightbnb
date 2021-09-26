@@ -5,8 +5,8 @@ import cookieSession from 'cookie-session';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
-import { Database } from './db';
-import database from './database';
+import { Database } from './database';
+import database from './mockDatabase';
 import apiRoutes from './apiRoutes';
 import userRoutes from './userRoutes';
 

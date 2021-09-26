@@ -6,7 +6,7 @@ import {
   Maybe,
   User,
   removeUserPasswordField
-} from '../db';
+} from '../database';
 
 export const login = async (
   req: Express.Request,

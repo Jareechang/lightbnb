@@ -50,12 +50,12 @@ import { Database } from '@app/server/database';
 #### Folders
 
 - server (`@app/server`) - Server related code  
-  - controllers - Any logic related to request, response  
-  - services - Any business logic on top of the data beyond just accessing raw data  
-  - database - Any database related logic (ie connections, data access abstractions)   
+  - controllers (`@app/controllers`) - Any logic related to request, response  
+  - services (`@app/services`) - Any business logic on top of the data beyond just accessing raw data  
+  - database (`@app/database`) - Any database related logic (ie connections, data access abstractions)   
      - dao - Data Access layer logic (specific to accessing database data)  
-  - routes - Any logic related to routing
-  - utils - Any common or shared utils goes here (`utils.ts` can also be in local directory if it is specific to a certain domain)
+  - routes (`@app/routes`) - Any logic related to routing
+  - utils (`@app/utils`) - Any common or shared utils goes here (`utils.ts` can also be in local directory if it is specific to a certain domain)
 - types (`@app/types`) - All typescript types goes here
 
 ```

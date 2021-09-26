@@ -15,9 +15,11 @@ class UserDataAccess implements IUserDataAccessInstance {
   }
 
   /*
-   * Get user by their email
+   * Create a new user
    *
+   * @param {String} name - user’s name
    * @param {String} email - user’s email
+   * @param {String} password - user’s password
    *
    * **/
   public async create(

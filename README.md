@@ -35,3 +35,34 @@ curl -X POST http://localhost:3000/users/login \
 -H 'Content-Type: application/json' \
 -d '{"email": "", "password": ""}'
 ```
+
+## Project structure
+
+All paths are resolved relative to `src/` and is namespaced with `@app/`.
+
+#### Example
+
+```ts
+import { Config } from '@app/types';
+import { Database } from '@app/server/database';
+```
+
+#### Folders
+
+- server (`@app/server`) - Server related code  
+  - controllers - Any logic related to request, response  
+  - services - Any business logic on top of the data beyond just accessing raw data  
+  - database - Any database related logic (ie connections, data access abstractions)   
+     - dao - Data Access layer logic (specific to accessing database data)  
+  - utils - Any common or shared utils goes here (`utils.ts` can also be in local directory if it is specific to a certain domain)  
+- types (`@app/types`) - All typescript types goes here
+
+```
+├── server
+│   ├── controllers
+│   ├── database
+│   │   └── dao
+│   ├── services
+│   └── utils
+└── types
+```

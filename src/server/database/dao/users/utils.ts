@@ -1,8 +1,8 @@
-import { Maybe, User } from './types';
+import { Maybe, User } from '@app/types';
 
 export const removeUserPasswordField = (
-  user: Maybe<Partial<User>>
-) : Maybe<Partial<User>> => {
+  user: Maybe<User>
+) : Maybe<User> => {
   if (!user) return null;
   return Object.keys(user)
     .reduce((acc, key) => {

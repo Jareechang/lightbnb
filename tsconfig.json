@@ -3,7 +3,12 @@
   "compilerOptions": {
     "noEmit": true,
     "allowJs": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "@app/types": ["./src/types"],
+      "@app/server/*": ["./src/server/*"]
+    }
   },
   "include": [
     "./src/**/*.ts",

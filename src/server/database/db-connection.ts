@@ -1,28 +1,18 @@
 import * as pg from 'pg';
 import { Pool } from 'pg';
-
-interface IDatabase {
-  configure() : void;
-
-  /*
-   * Query for pg
-   *
-   * **/
-  query<T = any>(
-    sql: string,
-    params: string[]
-  ) : Promise<pg.QueryResult<T>>;
-}
+import { Config, IDatabase } from '@app/types';
 
 class Database implements IDatabase {
   private pool : pg.Pool;
 
-  public configure() {
+  constructor(
+    config: Config
+  ) {
     this.pool = new Pool({
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      host: process.env.DB_HOST,
-      database: process.env.DB_NAME
+      user: config.DB_USERNAME,
+      password: config.DB_PASSWORD,
+      host: config.DB_HOST,
+      database: config.DB_NAME
     });
   }
 
@@ -34,4 +24,4 @@ class Database implements IDatabase {
   }
 }
 
-export default new Database();
+export default Database;

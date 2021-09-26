@@ -4,16 +4,27 @@ import path from 'path';
 import cookieSession from 'cookie-session';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import {
+  Config,
+  IServices,
+  IDatabase,
+  IDataAccessInstances
+} from '@app/types';
 
-import { Database } from './database';
+import { Database } from '@app/server/database';
+import { createServices } from '@app/server/services';
+import { createDataAccessInstances } from '@app/server/database/dao';
 import database from './mockDatabase';
 import apiRoutes from './apiRoutes';
 import userRoutes from './userRoutes';
 
 // Configure environment
-dotenv.config();
-// Configure db
-Database.configure();
+const { parsed: config } = dotenv.config();
+
+// Configure db, services etc
+const databaseInstance : IDatabase = new Database((config as Config));
+const dataAccessInstances: IDataAccessInstances = createDataAccessInstances(databaseInstance);
+const services : IServices = createServices(dataAccessInstances);
 
 const app : Express.Application = express();
 
@@ -32,7 +43,7 @@ app.use('/api', apiRouter);
 
 // /user/endpoints
 const userRouter : Express.Router = express.Router();
-userRoutes(userRouter, database);
+userRoutes(userRouter, database, services);
 app.use('/users', userRouter);
 
 app.use(express.static(path.join(__dirname, './public')));

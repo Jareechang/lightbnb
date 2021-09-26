@@ -24,9 +24,9 @@
     js-tokens "^4.0.0"
 
 "@common-web/esbuild@1.x.x":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@common-web/esbuild/-/esbuild-1.0.19.tgz#2c28e4284a60dbd5ae19db77e9c1d3c106b8df30"
-  integrity sha512-DRNUZSdGuJsgjicf1OxbqOxA8hFCH2qIPo24nv6bEKfQr++1OlruydDrUliQ8OQsmZScH8DdhMQKBUxySk5QtA==
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@common-web/esbuild/-/esbuild-1.0.20.tgz#3853ae84d99efce724ca8ee29c6e3d1f005b94a2"
+  integrity sha512-++YamOnWR197VgV82ICTxBLlICM9UUMepw4JMzjRF0ZU1RIqz5wic11PJOtg1axmkl96DrUyiFxsffkLuTIgoQ==
   dependencies:
     esbuild "^0.12.22"
     lodash "^4.17.21"
@@ -39,10 +39,22 @@
   dependencies:
     typescript "^3.9.5"
 
+"@types/bcrypt@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@types/bcrypt/-/bcrypt-5.0.0.tgz#a835afa2882d165aff5690893db314eaa98b9f20"
+  integrity sha512-agtcFKaruL8TmcvqbndlqHPSJgsolhf/qPWchFlgnW1gECTN/nKbFcoFnvKAQRFfKbh+BO6A3SWdJu9t+xF3Lw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/minimist@^1.2.0":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
+
+"@types/node@*", "@types/node@^16.10.1":
+  version "16.10.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.1.tgz#f3647623199ca920960006b3dccf633ea905f243"
+  integrity sha512-4/Z9DMPKFexZj/Gn3LylFgamNKHm4K3QDi0gz9B26Uk0c8izYf97B5fxfpspMNkWlFupblKM/nV8+NA9Ffvr+w==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -717,6 +729,11 @@ dot-prop@^4.2.1:
   integrity sha512-l0p4+mIuJIua0mhxGoh4a+iNL9bmeK5DvnSVQa6T0OhrVmaEa1XScX5Etc673FePCJOArq/4Pa2cLGODUWTPOQ==
   dependencies:
     is-obj "^1.0.0"
+
+dotenv@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
+  integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
 duplexer3@^0.1.4:
   version "0.1.4"

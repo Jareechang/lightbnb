@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
+import * as userController from './controllers/user.controllers';
 
-module.exports = function(router, database) {
+export default function(router, database) {
 
   // Create a new user
   router.post('/', (req, res) => {
@@ -18,36 +19,8 @@ module.exports = function(router, database) {
     .catch(e => res.send(e));
   });
 
-  /**
-   * Check if a user exists with a given username and password
-   * @param {String} email
-   * @param {String} password encrypted
-   */
-  const login =  function(email, password) {
-    return database.getUserWithEmail(email)
-    .then(user => {
-      if (bcrypt.compareSync(password, user.password)) {
-        return user;
-      }
-      return null;
-    });
-  }
-  exports.login = login;
+  router.post('/login', userController.login);
 
-  router.post('/login', (req, res) => {
-    const {email, password} = req.body;
-    login(email, password)
-      .then(user => {
-        if (!user) {
-          res.send({error: "error"});
-          return;
-        }
-        req.session.userId = user.id;
-        res.send({user: {name: user.name, email: user.email, id: user.id}});
-      })
-      .catch(e => res.send(e));
-  });
-  
   router.post('/logout', (req, res) => {
     req.session.userId = null;
     res.send({});
@@ -66,7 +39,7 @@ module.exports = function(router, database) {
           res.send({error: "no user with that id"});
           return;
         }
-    
+
         res.send({user: {name: user.name, email: user.email, id: userId}});
       })
       .catch(e => res.send(e));

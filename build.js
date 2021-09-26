@@ -11,7 +11,10 @@ esbuild.build(config.getBaseConfig({
     bundle: true,
     external: [
         ...Object.keys(packageJson.dependencies)
-    ]
+    ],
+    override: {
+        loader: { '.sql': 'text' }
+    }
 }))
 .then(copyFiles('./src/public', './dist/public', { recursive: true }))
 .then(() => {

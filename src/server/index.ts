@@ -1,14 +1,21 @@
+import * as Express from 'express';
+import express from 'express';
+import path from 'path';
+import cookieSession from 'cookie-session';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+
+import { Database } from './db';
 import database from './database';
 import apiRoutes from './apiRoutes';
 import userRoutes from './userRoutes';
 
-const path = require('path');
+// Configure environment
+dotenv.config();
+// Configure db
+Database.configure();
 
-const express = require('express');
-const cookieSession = require('cookie-session');
-const bodyParser = require('body-parser');
-
-const app = express();
+const app : Express.Application = express();
 
 app.use(cookieSession({
   name: 'session',
@@ -19,20 +26,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // /api/endpoints
-const apiRouter = express.Router();
+const apiRouter : Express.Router = express.Router();
 apiRoutes(apiRouter, database);
 app.use('/api', apiRouter);
 
 // /user/endpoints
-const userRouter = express.Router();
+const userRouter : Express.Router = express.Router();
 userRoutes(userRouter, database);
 app.use('/users', userRouter);
 
 app.use(express.static(path.join(__dirname, './public')));
 
-app.get("/test", (req, res) => {
+app.get("/test", (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction,
+) => {
   res.send("🤗");
 });
 
-const port = process.env.PORT || 3000; 
-app.listen(port, (err) => console.log(err || `listening on port ${port} 😎`));
+const port : string | number = process.env.PORT || 3000;
+app.listen(port, () => console.log(`listening on port ${port} 😎`));

@@ -1,6 +1,7 @@
 import {
   User,
-  Maybe
+  Maybe,
+  Reservation
 } from '.';
 
 export interface IUserDataAccessInstance {
@@ -19,6 +20,13 @@ export interface IUserDataAccessInstance {
   ) : Promise<Maybe<User>>;
 }
 
+export interface IReservationDataAccessInstance {
+  getReservationsByUserId(
+    id: string
+  ) : Promise<Reservation[]>;
+}
+
 export interface IDataAccessInstances {
   user: IUserDataAccessInstance;
+  reservation: IReservationDataAccessInstance;
 }

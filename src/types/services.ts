@@ -1,4 +1,4 @@
-import { Maybe, User } from '.';
+import { Maybe, User, Reservation } from '.';
 
 export interface UserService {
   signUp(
@@ -17,6 +17,13 @@ export interface UserService {
   ) : Promise<Maybe<User>>;
 }
 
+export interface ReservationService {
+  getReservationsByUserId(
+    id: string
+  ) : Promise<Reservation[]>;
+}
+
 export interface IServices {
   user: UserService;
+  reservation: ReservationService;
 }

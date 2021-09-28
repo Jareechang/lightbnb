@@ -17,13 +17,13 @@ async function setup() {
   await loadScript('/javascript/network.js');
   await loadScript('/javascript/views_manager.js');
   await Promise.all([
-    await loadScript('/javascript/components/header.js'),
-    await loadScript('/javascript/components/login_form.js'),
-    await loadScript('/javascript/components/new_property_form.js'),
-    await loadScript('/javascript/components/property_listing.js'),
-    await loadScript('/javascript/components/property_listings.js'),
-    await loadScript('/javascript/components/search_form.js'),
-    await loadScript('/javascript/components/signup_form.js'),
+    loadScript('/javascript/components/header.js'),
+    loadScript('/javascript/components/login_form.js'),
+    loadScript('/javascript/components/new_property_form.js'),
+    loadScript('/javascript/components/property_listing.js'),
+    loadScript('/javascript/components/property_listings.js'),
+    loadScript('/javascript/components/search_form.js'),
+    loadScript('/javascript/components/signup_form.js'),
   ]);
   console.timeEnd('load scripts setup');
 }

@@ -90,4 +90,4 @@ typings/
 *.swp
 db
 dist
-
+test.js

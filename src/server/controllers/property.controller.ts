@@ -1,7 +1,7 @@
 import * as Express from 'express';
 
 import {
-  Property,
+  PropertyResponse,
   PropertyService,
   FilterPropertiesOptions,
   IServices
@@ -30,8 +30,15 @@ export class PropertyController {
     res: Express.Response,
     next: Express.NextFunction
   ) {
-    let properties : Property[] = [];
-    const options : FilterPropertiesOptions = req.body;
+    let properties : PropertyResponse = {
+      data: [],
+      pagination: {
+        total: 0,
+        limit: 10,
+        offset: 0
+      }
+    };
+    const options : FilterPropertiesOptions = req?.body ?? {};
     properties = await this.propertyService.searchProperties(
       options
     );

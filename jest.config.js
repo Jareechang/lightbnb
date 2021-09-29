@@ -1,4 +1,10 @@
 module.exports = {
+  globals: {
+    'ts-jest': {
+      isolatedModules: true,
+      diagnostics: false,
+    }
+  },
   roots: [
     'src'
   ],

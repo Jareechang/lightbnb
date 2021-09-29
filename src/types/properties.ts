@@ -38,4 +38,16 @@ export interface Property {
 
   // sql alias of average rating
   average_rating?: number
+  total?: string;
+}
+
+export interface Pagination {
+  total: number;
+  offset: number;
+  limit: number;
+}
+
+export interface PropertyResponse {
+  data: Property[];
+  pagination: Pagination;
 }

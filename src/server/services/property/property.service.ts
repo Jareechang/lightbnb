@@ -1,9 +1,11 @@
 import {
   Maybe,
-  Property,
   FilterPropertiesOptions,
   IPropertyDataAccessInstance,
+  PropertyResponse,
 } from '@app/types';
+
+import { getPropertyPagination } from './utils';
 
 class PropertyService {
   private propertyDao: IPropertyDataAccessInstance;
@@ -14,11 +16,17 @@ class PropertyService {
 
   public async searchProperties(
     options: FilterPropertiesOptions
-  ) : Promise<Property[]> {
+  ) : Promise<PropertyResponse> {
     const properties : Property[] = await this.propertyDao.searchProperties(
       options
     );
-    return properties;
+    return {
+      data: properties,
+      pagination: getPropertyPagination(
+        properties,
+        options
+      )
+    };
   }
 }
 

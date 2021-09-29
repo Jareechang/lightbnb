@@ -1,8 +1,9 @@
 import { filterPropertiesQuery } from './filterPropertiesQuery';
 
 describe('filterPropertyQuery', () => {
-  const averageAggreateSelect = 'ROUND(AVG(property_reviews.rating), 1) AS average_rating';
-  const baseQuery : string = `select \"properties\".*, ${averageAggreateSelect}`
+  const average = 'ROUND(AVG(property_reviews.rating), 1) AS average_rating';
+  const total = '(SELECT count(properties.*) FROM properties) as total';
+  const baseQuery : string = `select \"properties\".*, ${total}, ${average}`
     + ' from \"properties\" inner join \"property_reviews\"'
     + ' on \"properties\".\"id\" = \"property_reviews\".\"property_id\"';
 

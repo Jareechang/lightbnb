@@ -11,6 +11,7 @@
     "express": "^4.17.1",
     "knex": "^0.95.11",
     "lodash.get": "^4.4.2",
+    "lodash.tonumber": "^4.0.3",
     "node-postgres": "^0.6.2",
     "nodemon": "^1.19.1",
     "pg": "^8.7.1"

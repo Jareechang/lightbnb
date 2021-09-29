@@ -9,12 +9,12 @@ import {
 
 export const filterPropertiesQuery = (
   options?: FilterPropertiesOptions,
-  limit: number = 10,
-  offset: number = 0,
 ): string => {
   try {
-    const query = knex()
-      .select('properties.*')
+    const total = knex.raw('(SELECT count(properties.*) FROM properties) as total');
+
+    const query = knex.queryBuilder()
+      .select('properties.*', total)
       .select(knex.raw('ROUND(AVG(property_reviews.rating), 1) AS average_rating'))
       .from('properties')
       .innerJoin('property_reviews', 'properties.id', 'property_reviews.property_id')

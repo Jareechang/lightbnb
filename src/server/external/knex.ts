@@ -1,5 +1,5 @@
 import _knex from 'knex';
 
-export const knex = _knex({
+export let knex = _knex({
   client: 'pg'
 });

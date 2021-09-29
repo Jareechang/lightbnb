@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import {
   knex
 } from '@app/server/external';
@@ -5,9 +6,6 @@ import {
 import {
   FilterPropertiesOptions
 } from '@app/types';
-
-
-//interface Properties {}
 
 export const filterPropertiesQuery = (
   options?: FilterPropertiesOptions,
@@ -17,7 +15,7 @@ export const filterPropertiesQuery = (
   try {
     const query = knex()
       .select('properties.*')
-      .avg('property_reviews.rating as average_rating')
+      .select(knex.raw('ROUND(AVG(property_reviews.rating), 1) AS average_rating'))
       .from('properties')
       .innerJoin('property_reviews', 'properties.id', 'property_reviews.property_id')
 
@@ -45,13 +43,20 @@ export const filterPropertiesQuery = (
 
     if (options?.minimum_rating) {
       query
-        .where('property_reviews.rating', '>', options?.minimum_rating);
+        .where('property_reviews.rating', '>=', options?.minimum_rating);
     }
 
     query
-      .groupBy('properties.id')
-      .limit(limit)
-      .offset(offset)
+      .groupBy('properties.id', 'property_reviews.rating')
+      .orderBy('property_reviews.rating', 'DESC')
+
+    query.limit(get(options, 'limit', 10));
+
+    // Set offset if its anything other than zero
+    // TODO check for total or max records
+    if (get(options, 'offset', 0) > 0) {
+      query.offset(get(options, 'offset'));
+    }
 
     return query.toString();
   } catch (error) {

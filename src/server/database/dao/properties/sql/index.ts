@@ -1,1 +1,1 @@
-export * from './filterPropertyQuery';
+export * from './filterPropertiesQuery';

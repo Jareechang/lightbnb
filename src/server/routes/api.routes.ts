@@ -4,7 +4,9 @@ import { IServices } from '@app/types';
 
 import {
   ReservationController,
-  withReservationService
+  withReservationService,
+  PropertyController,
+  withPropertyService,
 } from '@app/server/controllers';
 
 export default function(
@@ -13,15 +15,11 @@ export default function(
   services: IServices
 ) {
   const reservationController = new ReservationController();
+  const propertyController = new PropertyController();
 
-  router.get('/properties', (req: Express.Request, res: Express.Response) => {
-    database.getAllProperties(req.query, 20)
-    .then((properties: unknown) => res.send({properties}))
-    .catch((e: Error) => {
-      console.error(e);
-      res.send(e)
-    });
-  });
+  router.get('/properties',
+    withPropertyService(propertyController.searchProperties, services)
+  );
 
   router.get('/reservations',
     withReservationService(reservationController.getUserReservations, services)

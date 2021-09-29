@@ -8,22 +8,35 @@ This is a fork of [LHL LightBnB_WebApp](https://github.com/lighthouse-labs/Light
 - Integrate [@common-web/ts-config@1.0.1](https://www.npmjs.com/package/@common-web/ts-config) for typescript 
 - Moved `entry` from `index.js` to `index.ts`
 - Updated the local scripts `build`, `start`, `start:watch`
-
+- Update project structure
 
 ## Getting Started
 
+### Development
+
+**Start:**
 ```sh
-// static mode 
 yarn build && yarn start
 or
 npm build && npm start
-```
 
-```
 // watch mode 
 yarn start:watch
 or
 npm start:watch
+```
+**Testing / Linter:**
+
+```sh
+// tests 
+yarn run test
+// typescript typecheck
+yarn lint
+
+
+// Watch
+yarn run test:watch
+yarn lint -w
 ```
 
 ## API
@@ -35,6 +48,41 @@ curl -X POST http://localhost:3000/users/login \
 -H 'Content-Type: application/json' \
 -d '{"email": "", "password": ""}'
 ```
+
+### Properties
+
+**Search (price range):**
+
+```curl
+curl -X GET http://localhost:3000/api/properties \
+-H 'Content-Type: application/json' \
+-d '{"minimum_price_per_night": 100, "maximum_price_per_night": 300}'
+```
+
+**Search (min rating):**
+
+```curl
+ curl -X GET http://localhost:3000/api/properties \
+-H 'Content-Type: application/json' \
+-d '{"minimum_rating": 3.5}'
+```
+
+**Search (by owner_id):**
+
+```curl
+ curl -X GET http://localhost:3000/api/properties \
+ -H 'Content-Type: application/json' \
+ -d '{"owner_id": 22}' | jq
+```
+
+**Search (by city):**
+```curl
+ curl -X GET http://localhost:3000/api/properties \
+ -H 'Content-Type: application/json' \
+ -d '{"city": "Vancouver"}' | jq
+```
+
+
 
 ## Project structure
 
@@ -68,3 +116,8 @@ import { Database } from '@app/server/database';
 │   └── utils
 └── types
 ```
+
+## TODO 
+
+- Add pagination for properties
+- Add new property 

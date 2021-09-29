@@ -1,7 +1,9 @@
 import {
   User,
   Maybe,
-  Reservation
+  Property,
+  Reservation,
+  FilterPropertiesOptions,
 } from '.';
 
 export interface IUserDataAccessInstance {
@@ -26,7 +28,14 @@ export interface IReservationDataAccessInstance {
   ) : Promise<Reservation[]>;
 }
 
+export interface IPropertyDataAccessInstance {
+  searchProperties(
+    options: FilterPropertiesOptions
+  ) : Promise<Property[]>;
+}
+
 export interface IDataAccessInstances {
   user: IUserDataAccessInstance;
   reservation: IReservationDataAccessInstance;
+  property: IPropertyDataAccessInstance;
 }

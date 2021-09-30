@@ -19,7 +19,7 @@ const getConfigurations = () => {
     }
   };
   if (debug) {
-    console.table('ci.config: ', JSON.stringify(config, null, 2));
+    console.log('ci.config: ', JSON.stringify(config, null, 2));
   }
   return config;
 }

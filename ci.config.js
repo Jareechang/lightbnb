@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+const get = require('lodash.get');
 
 const getConfigurations = () => {
   const debug = process.env.CI_DEBUG;
@@ -6,7 +6,7 @@ const getConfigurations = () => {
   const isProduction = nodeEnv === 'production';
   const collectCoverage = get(process.env, 'CI_JEST_COVERAGE', false);
   const config = {
-    node,
+    nodeEnv,
     isProduction,
     jest: {
       collectCoverage

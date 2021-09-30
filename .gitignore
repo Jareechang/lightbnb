@@ -92,3 +92,4 @@ typings/
 db
 dist
 test.js
+testCoverage

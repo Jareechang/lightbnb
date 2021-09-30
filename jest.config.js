@@ -32,7 +32,7 @@ module.exports = {
     "json",
     "node"
   ],
-  coverageDirectory: 'src/**',
+  coverageDirectory: 'testCoverage',
   coveragePathIgnorePatterns: [
     'node_modules'
   ],

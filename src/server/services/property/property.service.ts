@@ -1,7 +1,7 @@
 import {
-  Maybe,
   FilterPropertiesOptions,
   IPropertyDataAccessInstance,
+  Property,
   PropertyResponse,
 } from '@app/types';
 

@@ -1,4 +1,10 @@
-import { Maybe, User, Reservation } from '.';
+import {
+  Maybe,
+  User,
+  Reservation,
+  PropertyResponse,
+  FilterPropertiesOptions,
+} from '.';
 
 export interface UserService {
   signUp(
@@ -23,7 +29,14 @@ export interface ReservationService {
   ) : Promise<Reservation[]>;
 }
 
+export interface PropertyService {
+  searchProperties(
+    options: FilterPropertiesOptions
+  ) : Promise<PropertyResponse>
+}
+
 export interface IServices {
   user: UserService;
   reservation: ReservationService;
+  property: PropertyService;
 }

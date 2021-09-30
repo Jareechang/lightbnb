@@ -6,6 +6,10 @@ export interface FilterPropertiesOptions {
   minimum_price_per_night?: Maybe<number>;
   maximum_price_per_night?: Maybe<number>;
   minimum_rating?: Maybe<number>;
+
+  page?: Maybe<number>;
+  entries?: Maybe<number>
+  // @depcrecated
   limit?: number;
   offset?: number;
 }
@@ -43,8 +47,8 @@ export interface Property {
 
 export interface Pagination {
   total: number;
-  offset: number;
   limit: number;
+  offset: number;
 }
 
 export interface PropertyResponse {

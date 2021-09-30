@@ -14,7 +14,7 @@ describe('properties.utils', () => {
       offset: 10,
     };
     const pagination : Pagination = getPropertyPagination(
-      mockProperties,
+      (mockProperties as Property[]),
       mockFilterOptions
     );
     expect(pagination).toEqual({

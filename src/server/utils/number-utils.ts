@@ -10,11 +10,11 @@ import _toNumber from 'lodash.tonumber';
  * **/
 export const toNumber = (
   num: string,
-  defaultValue: number
+  defaultValue?: number
 ) : number => {
-  const value : unknown = _toNumber(num);
+  const value : number = _toNumber(num);
   if (!value || isNaN(value)) {
-    return defaultValue;
+    return defaultValue || 0;
   }
   return value;
 }

@@ -24,7 +24,7 @@ class PropertyDataAccess implements IPropertyDataAccessInstance {
     let properties : Property[] = [];
     try {
       const { rows } = await this.database.query(
-        sql.filterPropertiesQuery(options)
+        sql.searchPropertiesQuery(options)
       );
       properties = rows;
     } catch (error) {

@@ -7,6 +7,6 @@ export interface IDatabase {
    * **/
   query<T = any>(
     sql: string,
-    params: string[]
+    params?: string[]
   ) : Promise<pg.QueryResult<T>>;
 }

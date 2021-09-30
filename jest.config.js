@@ -1,4 +1,8 @@
+const config = require('./ci.config');
+
 module.exports = {
+  collectCoverage: config.collectCoverage,
+  verbose: config.isProduction,
   globals: {
     'ts-jest': {
       isolatedModules: true,
@@ -28,6 +32,7 @@ module.exports = {
     "json",
     "node"
   ],
+  coverageDirectory: 'src/**',
   coveragePathIgnorePatterns: [
     'node_modules'
   ],

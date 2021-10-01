@@ -54,7 +54,6 @@ class PropertyService {
     const properties : Property[] = await this.propertyDao.searchProperties(
       sqlOptions,
     );
-    console.log('sql options: ', sqlOptions);
     const paginationOptions: Partial<Pagination> = {
       page: options?.page ?? 1,
       entries: options?.entries ?? 10,

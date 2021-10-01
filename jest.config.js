@@ -2,7 +2,7 @@ const config = require('./ci.config');
 
 module.exports = {
   collectCoverage: config.jest.collectCoverage,
-  verbose: config.isProduction,
+  verbose: config.jest.verbose,
   globals: {
     'ts-jest': {
       isolatedModules: true,

@@ -11,10 +11,12 @@ const getConfigurations = () => {
   const nodeEnv = process.env.NODE_ENV;
   const isProduction = nodeEnv === 'production';
   const collectCoverage = parseBool(get(process.env, 'CI_JEST_COVERAGE', false));
+  const verbose = ['production', 'test'].includes(nodeEnv);
   const config = {
     nodeEnv,
     isProduction,
     jest: {
+      verbose,
       collectCoverage
     }
   };

@@ -34,11 +34,12 @@ export class PropertyController {
       data: [],
       pagination: {
         total: 0,
-        limit: 10,
-        offset: 0
+        page: 1,
+        entries: 10,
+        totalPageSize: 0
       }
     };
-    const options : FilterPropertiesOptions = req?.body ?? {};
+    const options : FilterPropertiesOptions = req?.query ?? {};
     properties = await this.propertyService.searchProperties(
       options
     );

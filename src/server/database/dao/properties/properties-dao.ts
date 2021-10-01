@@ -1,4 +1,5 @@
 import {
+  Maybe,
   Property,
   IDatabase,
   IPropertyDataAccessInstance,
@@ -12,6 +13,24 @@ class PropertyDataAccess implements IPropertyDataAccessInstance {
 
   constructor(database: IDatabase) {
     this.database = database;
+  }
+  /*
+   * get total number of properties
+   *
+   * **/
+  public async getTotal(
+    options: FilterPropertiesOptions
+  ) : Promise<Maybe<number | string>> {
+    let total : Maybe<number> = 0;
+    try {
+      const { rows } = await this.database.query(
+        sql.totalPropertiesQuery(options).toString()
+      );
+      total = rows[0]?.count || 0;
+    } catch (error) {
+      console.error('PropertyDataAccess.getTotal failed : ', error);
+    }
+    return total;
   }
 
   /*
@@ -28,7 +47,7 @@ class PropertyDataAccess implements IPropertyDataAccessInstance {
       );
       properties = rows;
     } catch (error) {
-      console.error('PropertyDataAccess.getProperties failed : ', error);
+      console.error('PropertyDataAccess.searchProperties failed : ', error);
     }
     return properties;
   }

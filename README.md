@@ -54,32 +54,28 @@ curl -X POST http://localhost:3000/users/login \
 **Search (price range):**
 
 ```curl
-curl -X GET http://localhost:3000/api/properties \
--H 'Content-Type: application/json' \
--d '{"minimum_price_per_night": 100, "maximum_price_per_night": 300}'
+curl -X GET "http://localhost:3000/api/properties?minimum_price_per_night=100&maximum_price_per_night=300" \
+-H 'Content-Type: application/json' | jq
 ```
 
 **Search (min rating):**
 
 ```curl
- curl -X GET http://localhost:3000/api/properties \
--H 'Content-Type: application/json' \
--d '{"minimum_rating": 3.5}'
+ curl -X GET "http://localhost:3000/api/properties?minimum_rating=3.5" \
+-H 'Content-Type: application/json' | jq
 ```
 
 **Search (by owner_id):**
 
 ```curl
- curl -X GET http://localhost:3000/api/properties \
- -H 'Content-Type: application/json' \
- -d '{"owner_id": 22}' | jq
+ curl -X GET http://localhost:3000/api/properties?owner_id=22 \
+ -H 'Content-Type: application/json' | jq
 ```
 
 **Search (by city):**
 ```curl
- curl -X GET http://localhost:3000/api/properties \
- -H 'Content-Type: application/json' \
- -d '{"city": "Vancouver"}' | jq
+ curl -X GET "http://localhost:3000/api/properties?city=Vancouver" \
+ -H 'Content-Type: application/json' | jq
 ```
 
 

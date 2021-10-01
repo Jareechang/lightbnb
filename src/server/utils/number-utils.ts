@@ -1,3 +1,4 @@
+import { Maybe } from '@app/types';
 import _toNumber from 'lodash.tonumber';
 
 /*
@@ -9,7 +10,7 @@ import _toNumber from 'lodash.tonumber';
  *
  * **/
 export const toNumber = (
-  num: string,
+  num: Maybe<string | number>,
   defaultValue?: number
 ) : number => {
   const value : number = _toNumber(num);

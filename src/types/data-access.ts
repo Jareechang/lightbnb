@@ -32,6 +32,9 @@ export interface IPropertyDataAccessInstance {
   searchProperties(
     options: FilterPropertiesOptions
   ) : Promise<Property[]>;
+  getTotal(
+    options: FilterPropertiesOptions
+  ) : Promise<Maybe<string | number>>;
 }
 
 export interface IDataAccessInstances {

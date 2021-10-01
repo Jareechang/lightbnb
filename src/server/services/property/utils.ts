@@ -1,20 +1,19 @@
-import get from 'lodash.get';
 import {
+  Maybe,
   Property,
   Pagination,
-  FilterPropertiesOptions,
 } from '@app/types';
 
-import { toNumber } from '@app/server/utils';
+import {
+  toNumber,
+  getPaginationMetadata,
+} from '@app/server/utils';
 
 export const getPropertyPagination = (
   properties: Property[],
-  options: FilterPropertiesOptions
+  options: Partial<Pagination>
 ) : Pagination => {
-  const property = properties[0];
-  return {
-    total: toNumber(property?.total ?? '', 0),
-    limit: get(options, 'limit', 10),
-    offset: get(options, 'offset', 0),
-  };
+  const property : Property = properties[0];
+  const total : Maybe<number> = toNumber(property?.total ?? '', 0);
+  return getPaginationMetadata(total, options);
 }

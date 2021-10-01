@@ -1,17 +1,22 @@
-import { Maybe } from '.';
+import { Maybe, Pagination } from '.';
 
-export interface FilterPropertiesOptions {
+export interface BaseFilterPropertiesOptions {
   city?: Maybe<string>;
   owner_id?: Maybe<number>;
   minimum_price_per_night?: Maybe<number>;
   maximum_price_per_night?: Maybe<number>;
   minimum_rating?: Maybe<number>;
+}
 
+// User / Client facing options
+export type FilterPropertiesOptions = BaseFilterPropertiesOptions & {
   page?: Maybe<number>;
   entries?: Maybe<number>
-  // @depcrecated
-  limit?: number;
-  offset?: number;
+}
+
+export type FilterPropertiesSqlOptions = BaseFilterPropertiesOptions & {
+  limit?: Maybe<number>;
+  offset?: Maybe<number>;
 }
 
 export interface PropertyReview {
@@ -42,13 +47,7 @@ export interface Property {
 
   // sql alias of average rating
   average_rating?: number
-  total?: string;
-}
-
-export interface Pagination {
-  total: number;
-  limit: number;
-  offset: number;
+  total: string;
 }
 
 export interface PropertyResponse {

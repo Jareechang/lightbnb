@@ -5,12 +5,12 @@ import {
 
 import {
   Maybe,
-  FilterPropertiesOptions
+  FilterPropertiesSqlOptions
 } from '@app/types';
 
 export const filterClauses = (
   query: any,
-  options?: Maybe<FilterPropertiesOptions>,
+  options?: Maybe<FilterPropertiesSqlOptions>,
 ) => {
   if (!query) return query;
 
@@ -45,7 +45,7 @@ export const filterClauses = (
 }
 
 export const totalPropertiesQuery = (
-  options?: FilterPropertiesOptions,
+  options?: FilterPropertiesSqlOptions,
 ) => {
   return filterClauses(
     knex.queryBuilder()
@@ -57,7 +57,7 @@ export const totalPropertiesQuery = (
 }
 
 export const searchPropertiesQuery = (
-  options?: FilterPropertiesOptions,
+  options?: FilterPropertiesSqlOptions,
 ): string => {
   try {
     //const total = knex.raw('(SELECT count(properties.*) FROM properties) as total');
@@ -79,7 +79,8 @@ export const searchPropertiesQuery = (
 
     // Set offset if its anything other than zero
     // TODO check for total or max records
-    if (get(options, 'offset', 0) > 0) {
+    const offset = get(options, 'offset', 0) ?? 0;
+    if (options && offset > 0) {
       query.offset(get(options, 'offset'));
     }
 

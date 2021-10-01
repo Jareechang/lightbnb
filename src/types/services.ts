@@ -32,7 +32,7 @@ export interface ReservationService {
 export interface PropertyService {
   searchProperties(
     options: FilterPropertiesOptions
-  ) : Promise<PropertyResponse>
+  ) : Promise<PropertyResponse>;
 }
 
 export interface IServices {

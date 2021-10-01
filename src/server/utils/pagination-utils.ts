@@ -8,6 +8,9 @@ import {
 
 import { toNumber } from './number-utils';
 
+export const defaultEntries : number = 10;
+export const defaultPage : number = 1;
+
 export const getTotal = (
   total: Maybe<string | number>
 ) : number => {
@@ -27,7 +30,7 @@ export const calculateTotalPageSize = (
   // pagination options in the request
   options: Partial<Pagination>
 ) : number => {
-  const entries : number = get(options, 'entries', 10) ?? 10;
+  const entries : number = getEntries(options?.entries ?? null, total);
   const _total : number = getTotal(total);
   // If not total is available we can’t calculate total page size
   if (!_total) return _total;
@@ -36,15 +39,28 @@ export const calculateTotalPageSize = (
 }
 
 /*
- * get the page number within the limits of the max number
+ * get the page number within the limits of the total
  *
  * **/
 export const getPage = (
   page: number,
-  totalPageSize: number
+  totalPageSize: Maybe<number>
 ): number => {
-  if (totalPageSize === 0) return page;
+  if (!totalPageSize || totalPageSize === 0) return defaultPage;
   return Math.min(page, totalPageSize);
+}
+
+/*
+ * get the entries within the limits of the total
+ *
+ * **/
+export const getEntries = (
+  entries: Maybe<number>,
+  total: Maybe<number | string>
+): number => {
+  if (!total || total === 0 || !entries) return defaultEntries;
+  if (entries < defaultEntries) return defaultEntries;
+  return (entries < total) ? entries : defaultEntries;
 }
 
 export const getSqlOptions = (
@@ -52,8 +68,16 @@ export const getSqlOptions = (
   options: Partial<Pagination>
 ) : SqlOptions => {
   const _total : number = getTotal(total);
-  const page : number = toNumber(get(options, 'page', 1)) ?? 1;
-  const entries : number = toNumber(get(options, 'entries', 10)) ?? 10;
+  const paginationMetadata : Pagination = getPaginationMetadata(_total, options);
+  /*
+   * To map from page to offset, we’ll need to start at zero
+   * First page requires offset = 0
+   * **/
+  const page = paginationMetadata.page - 1;
+  const entries = paginationMetadata.entries;
+
+  //const page : number = (toNumber(get(options, 'page', defaultPage)) ?? defaultPage) - 1;
+  //const entries : number = toNumber(get(options, 'entries', defaultEntries)) ?? defaultEntries;
   const sqlOptions : SqlOptions = {
     limit: 10,
     offset: 0
@@ -65,7 +89,9 @@ export const getSqlOptions = (
   if ((page * entries) < _total) {
     sqlOptions.offset = page * entries;
     sqlOptions.limit = entries;
+    return sqlOptions;
   }
+
   return sqlOptions;
 }
 
@@ -74,6 +100,9 @@ export const getSqlOptions = (
  *
  * Get the pagination meta data
  *
+ * entries - return the entries or the defaultEntries if it exceeds total
+ * page - return smaller of the two the page or the totalPageSize
+ *
  * **/
 export const getPaginationMetadata = (
   // The total number of entries available
@@ -81,6 +110,7 @@ export const getPaginationMetadata = (
   // pagination options in the request
   options: Partial<Pagination>
 ): Pagination => {
+  const _total = getTotal(total);
   const page : number = get(options, 'page', 1) ?? 1;
   const entries : number = toNumber(get(options, 'entries', 10), 10);
   const totalPageSize : number = calculateTotalPageSize(
@@ -88,9 +118,9 @@ export const getPaginationMetadata = (
     options
   );
   return {
-    total: total ?? 0,
+    total: _total,
     page: getPage(page, totalPageSize),
-    entries,
+    entries: getEntries(entries, _total),
     totalPageSize,
   }
 }

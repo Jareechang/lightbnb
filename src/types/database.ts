@@ -1,3 +1,4 @@
+import { Maybe } from '.';
 import * as pg from 'pg';
 
 export interface IDatabase {
@@ -9,4 +10,9 @@ export interface IDatabase {
     sql: string,
     params?: string[]
   ) : Promise<pg.QueryResult<T>>;
+}
+
+export interface SqlOptions {
+  limit: Maybe<number>;
+  offset: Maybe<number>;
 }

@@ -1,5 +1,6 @@
 const config = require('./ci.config');
 
+// Todo support both client & server tests
 module.exports = {
   collectCoverage: config.jest.collectCoverage,
   verbose: config.jest.verbose,
@@ -7,6 +8,7 @@ module.exports = {
     'ts-jest': {
       isolatedModules: true,
       diagnostics: false,
+      tsConfig: './src/server/tsconfig.json'
     }
   },
   roots: [

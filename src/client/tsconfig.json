@@ -1,0 +1,23 @@
+{
+  "extends": "../../node_modules/@common-web/ts-config/tsconfig.base.json",
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "noEmit": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "module": "esnext",
+    "paths": {
+      "@app/types": ["../types"],
+      "@app/client/*": ["./*"]
+    }
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
+    "../../global.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

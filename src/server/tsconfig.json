@@ -1,17 +1,17 @@
 {
-  "extends": "./node_modules/@common-web/ts-config/tsconfig.base.json",
+  "extends": "../../node_modules/@common-web/ts-config/tsconfig.base.json",
   "compilerOptions": {
     "noEmit": true,
     "allowJs": true,
     "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
-      "@app/types": ["./src/types"],
-      "@app/server/*": ["./src/server/*"]
+      "@app/types": ["../types"],
+      "@app/server/*": ["./*"]
     }
   },
   "include": [
-    "./src/**/*.ts",
+    "./**/*.ts",
     "./global.d.ts"
   ],
   "exclude": [

@@ -39,6 +39,17 @@ yarn run test:watch
 yarn lint -w
 ```
 
+### Debugging 
+
+```
+// Turn on logger for sql queries generated
+export KNEX_DEBUG=true
+```
+
+**Example:**
+
+![Knex Debug Logging](./internal/images/knex-querybuilder-debug.png)
+
 ## API
 
 ### Login

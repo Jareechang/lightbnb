@@ -6,6 +6,7 @@
     "noEmit": true,
     "strictPropertyInitialization": false,
     "baseUrl": ".",
+    "skipLibCheck": true,
     "module": "esnext",
     "paths": {
       "@app/types": ["../types"],

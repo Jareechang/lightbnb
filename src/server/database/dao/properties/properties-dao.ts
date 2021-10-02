@@ -19,7 +19,7 @@ class PropertyDataAccess implements IPropertyDataAccessInstance {
    *
    * **/
   public async getTotal(
-    options: FilterPropertiesOptions
+    options?: FilterPropertiesOptions
   ) : Promise<Maybe<number | string>> {
     let total : Maybe<number> = 0;
     try {
@@ -38,12 +38,12 @@ class PropertyDataAccess implements IPropertyDataAccessInstance {
    *
    * **/
   public async searchProperties(
-    options: FilterPropertiesOptions
+    options?: FilterPropertiesOptions
   ) : Promise<Property[]> {
     let properties : Property[] = [];
     try {
       const { rows } = await this.database.query(
-        sql.searchPropertiesQuery(options)
+        sql.searchPropertiesQuery(options).toString()
       );
       properties = rows;
     } catch (error) {

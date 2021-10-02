@@ -1,12 +1,18 @@
 import get from 'lodash.get';
 import {
-  knex
+  createKnexQueryBuilder,
+  knex,
 } from '@app/server/external';
 
 import {
   Maybe,
+  QueryBuilderOptions,
   FilterPropertiesSqlOptions
 } from '@app/types';
+
+import {
+  toNumber
+} from '@app/server/utils';
 
 export const filterClauses = (
   query: any,
@@ -36,58 +42,55 @@ export const filterClauses = (
     }
   }
 
-  if (options?.minimum_rating) {
-    query
-      .where('property_reviews.rating', '>=', options?.minimum_rating);
-  }
-
   return query;
 }
 
 export const totalPropertiesQuery = (
   options?: FilterPropertiesSqlOptions,
-) => {
-  return filterClauses(
-    knex.queryBuilder()
-    .count('properties.*')
-    .from('properties')
-    .as('total'),
-    options,
-  );
+) : any => {
+  return createKnexQueryBuilder()
+    .count('results.id')
+    .from(
+      searchPropertiesQuery(options, { skipLimit: true })
+      .as('results')
+    );
 }
 
 export const searchPropertiesQuery = (
   options?: FilterPropertiesSqlOptions,
-): string => {
-  try {
-    //const total = knex.raw('(SELECT count(properties.*) FROM properties) as total');
-    let total = totalPropertiesQuery(options);
+  queryOptions: QueryBuilderOptions = {
+    skipLimit: false
+  }
+): any => {
+  const skipLimit : boolean = get(queryOptions, 'skipLimit', false);
+  let query = createKnexQueryBuilder()
+    .select('properties.*')
+    .select(knex.raw('ROUND(AVG(property_reviews.rating), 1) AS average_rating'))
+    .from('properties')
+    .innerJoin('property_reviews', 'properties.id', 'property_reviews.property_id')
 
-    let query = knex.queryBuilder()
-      .select('properties.*', total)
-      .select(knex.raw('ROUND(AVG(property_reviews.rating), 1) AS average_rating'))
-      .from('properties')
-      .innerJoin('property_reviews', 'properties.id', 'property_reviews.property_id')
+  query = filterClauses(query, options);
 
-    query = filterClauses(query, options);
+  query
+    .groupBy('properties.id', 'property_reviews.rating')
+    .orderBy('average_rating', 'DESC')
 
+  if (options?.minimum_rating) {
     query
-      .groupBy('properties.id', 'property_reviews.rating')
-      .orderBy('property_reviews.rating', 'DESC')
-
-    query.limit(get(options, 'limit', 10));
-
-    // Set offset if its anything other than zero
-    // TODO check for total or max records
-    const offset = get(options, 'offset', 0) ?? 0;
-    if (options && offset > 0) {
-      query.offset(get(options, 'offset'));
-    }
-
-    return query.toString();
-  } catch (error) {
-    console.error('filterPropertiesQuery -> failed to generate : ', error);
+      .having(knex.raw('ROUND(AVG(property_reviews.rating), 1)'), '>=',
+        toNumber(options?.minimum_rating, 1)
+      );
   }
 
-  return '';
+  if (!skipLimit) {
+    query.limit(get(options, 'limit', 10));
+  }
+
+  const offset = get(options, 'offset', 0) ?? 0;
+
+  if (options && offset > 0) {
+    query.offset(get(options, 'offset'));
+  }
+
+  return query;
 }

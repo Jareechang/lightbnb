@@ -1,5 +1,17 @@
 import _knex from 'knex';
+import { queryBuilderLogger } from '../../../internal/knex/logging';
 
-export let knex = _knex({
+export const knex = _knex({
   client: 'pg'
 });
+
+if (process.env.KNEX_DEBUG) {
+  console.log(knex.version);
+  console.log('Running knex querybuilder in debug mode');
+}
+
+export const createKnexQueryBuilder = () => {
+  const queryBuilder = knex.queryBuilder();
+  queryBuilder.toString = (queryBuilderLogger).bind(queryBuilder);
+  return queryBuilder;
+}

@@ -1,6 +1,5 @@
 import {
   Maybe,
-  Property,
   Pagination,
 } from '@app/types';
 
@@ -10,10 +9,16 @@ import {
 } from '@app/server/utils';
 
 export const getPropertyPagination = (
-  properties: Property[],
+  total: Maybe<string | number>,
   options: Partial<Pagination>
 ) : Pagination => {
-  const property : Property = properties[0];
-  const total : Maybe<number> = toNumber(property?.total ?? '', 0);
-  return getPaginationMetadata(total, options);
+  const _total : Maybe<number> = toNumber(total ?? '', 0);
+  return getPaginationMetadata(_total, options);
+}
+
+export const getMinRating = (
+  rating: Maybe<string | number>,
+) : number => {
+  if (!rating) return 1;
+  return Math.round(toNumber(rating, 1));
 }

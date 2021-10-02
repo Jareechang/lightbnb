@@ -16,3 +16,7 @@ export interface SqlOptions {
   limit: Maybe<number>;
   offset: Maybe<number>;
 }
+
+export interface QueryBuilderOptions {
+  skipLimit?: boolean;
+}

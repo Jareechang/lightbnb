@@ -6,7 +6,6 @@ export const knex = _knex({
 });
 
 if (process.env.KNEX_DEBUG) {
-  console.log(knex.version);
   console.log('Running knex querybuilder in debug mode');
 }
 

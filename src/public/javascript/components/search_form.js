@@ -32,7 +32,7 @@ $(() => {
     const data = $(this).serialize();
 
     getAllListings(data).then(function( json ) {
-      propertyListings.addProperties(json.properties);
+      propertyListings.addProperties(json.data, json.pagination);
       views_manager.show('listings');
     });
   });

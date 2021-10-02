@@ -56,4 +56,15 @@
 .hidden {
   display: none; }
 
+.property-listing__pagination_container {
+  flex: none;
+}
+.property-listing__pagination_links {
+  display: inline-block;
+  padding-right: 1em;
+}
+
+.property-listing__pagination_links.skip-button {
+  padding-left: 1em;
+}
 /*# sourceMappingURL=main.css.map */

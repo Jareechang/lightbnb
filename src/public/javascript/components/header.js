@@ -46,15 +46,17 @@ $(() => {
   });
 
   $("header").on("click", '.my_reservations_button', function() {
+    clearUrl();
     propertyListings.clearListings();
     getAllReservations()
       .then(function(json) {
-        propertyListings.addProperties(json.reservations, true);
+        propertyListings.addProperties(json.reservations, json.pagination, true);
         views_manager.show('listings');
       })
       .catch(error => console.error(error));
   });
   $("header").on("click", '.my_listing_button', function() {
+    clearUrl();
     propertyListings.clearListings();
     getAllListings(`owner_id=${currentUser.id}`)
       .then(function(json) {
@@ -64,32 +66,41 @@ $(() => {
   });
 
   $("header").on("click", '.home', function() {
+
+    //clearUrl();
     propertyListings.clearListings();
     getAllListings()
       .then(function(json) {
-        propertyListings.addProperties(json.properties);
+        propertyListings.addProperties(json.data, json.pagination);
         views_manager.show('listings');
     });
   });
 
   $('header').on('click', '.search_button', function() {
+    clearUrl();
     views_manager.show('searchProperty');
   });
 
   $("header").on('click', '.login_button', () => {
+    clearUrl();
     views_manager.show('logIn');
   });
   $("header").on('click', '.sign-up_button', () => {
+    clearUrl();
     views_manager.show('signUp');
   });
   $("header").on('click', '.logout_button', () => {
+    clearUrl();
     logOut().then(() => {
       header.update(null);
     });
   });
 
   $('header').on('click', '.create_listing_button', function() {
+    clearUrl();
     views_manager.show('newProperty');
   });
+
+  updateHeader();
 
 });

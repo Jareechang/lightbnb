@@ -20,7 +20,7 @@
     "lint": "tsc -p .",
     "build": "node ./build.js",
     "start": "yarn build && node dist/index.js",
-    "start:watch": "npx nodemon --ext ts,js,sql --watch src/server --exec \"yarn start\"",
+    "start:watch": "npx nodemon --ext ts,js,sql --watch src --exec \"yarn start\"",
     "test": "jest -c ./jest.config.js",
     "test:watch": "jest -c ./jest.config.js --watch"
   },

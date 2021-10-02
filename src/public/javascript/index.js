@@ -12,12 +12,19 @@ function loadScript(src) {
   });
 }
 
+async function loadInitizationScripts() {
+  // Base utils
+  await loadScript('/javascript/utils.js');
+  // Api requests utils
+  await loadScript('/javascript/network.js');
+  // View manager
+  await loadScript('/javascript/views_manager.js');
+}
+
 async function setup() {
   console.time('load scripts setup');
-  await loadScript('/javascript/network.js');
-  await loadScript('/javascript/views_manager.js');
+  await loadInitizationScripts();
   await Promise.all([
-    loadScript('/javascript/components/header.js'),
     loadScript('/javascript/components/login_form.js'),
     loadScript('/javascript/components/new_property_form.js'),
     loadScript('/javascript/components/property_listing.js'),
@@ -25,14 +32,18 @@ async function setup() {
     loadScript('/javascript/components/search_form.js'),
     loadScript('/javascript/components/signup_form.js'),
   ]);
+  await loadScript('/javascript/components/header.js'),
   console.timeEnd('load scripts setup');
 }
 
 $(() => {
   setup()
-    .then(() => getAllListings())
+    .then(() => {
+      const page = getUrlParams().page;
+      return getAllListings(`page=${page}`)
+    })
     .then(function( json ) {
-      propertyListings.addProperties(json.properties);
+      propertyListings.addProperties(json.data, json.pagination);
       views_manager.show('listings');
     });
 });

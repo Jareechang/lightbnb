@@ -2,6 +2,7 @@ import {
   Maybe,
   User,
   Reservation,
+  Property,
   PropertyResponse,
   FilterPropertiesOptions,
 } from '.';
@@ -33,6 +34,10 @@ export interface PropertyService {
   searchProperties(
     options: FilterPropertiesOptions
   ) : Promise<PropertyResponse>;
+
+  addProperty(
+    property: Property
+  ) : Promise<Maybe<Property>>;
 }
 
 export interface IServices {

@@ -1,6 +1,7 @@
 import * as Express from 'express';
 
 import {
+  Property,
   PropertyResponse,
   PropertyService,
   FilterPropertiesOptions,

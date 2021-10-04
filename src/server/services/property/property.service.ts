@@ -72,7 +72,7 @@ class PropertyService {
 
   public async addProperty(
     property: Property
-  ): Promise<Property> {
+  ): Promise<Maybe<Property>> {
     return await this.propertyDao.addProperty(property);
   }
 

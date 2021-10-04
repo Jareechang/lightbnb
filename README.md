@@ -132,6 +132,7 @@ import { Database } from '@app/server/database';
   - database (`@app/database`) - Any database related logic (ie connections, data access abstractions)   
      - dao - Data Access layer logic (specific to accessing database data)  
   - routes (`@app/routes`) - Any logic related to routing
+  - external (`@app/external`) - Any third party libraries 
   - utils (`@app/utils`) - Any common or shared utils goes here (`utils.ts` can also be in local directory if it is specific to a certain domain)
 - types (`@app/types`) - All typescript types goes here
 
@@ -142,11 +143,13 @@ import { Database } from '@app/server/database';
 │   │   └── dao
 │   ├── services
 │   ├── routes 
+│   ├── external 
 │   └── utils
 └── types
 ```
 
 ## TODO 
 
-- Add pagination for properties
-- Add new property 
+- Add ‘make reservation’
+- Convert client side to react
+

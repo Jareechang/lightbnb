@@ -70,6 +70,12 @@ class PropertyService {
     return total;
   }
 
+  public async addProperty(
+    property: Property
+  ): Promise<Property> {
+    return await this.propertyDao.addProperty(property);
+  }
+
   private async getMax() : Promise<Maybe<string | number>>  {
     if (this.total) return this.total;
     const total : Maybe<string | number> = await this.propertyDao.getTotal({});

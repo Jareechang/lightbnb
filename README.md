@@ -89,7 +89,29 @@ curl -X GET "http://localhost:3000/api/properties?minimum_price_per_night=100&ma
  -H 'Content-Type: application/json' | jq
 ```
 
+**Add Property:**
 
+```curl
+ curl -X POST http://localhost:3000/api/properties \
+ -H 'Content-Type: application/json' \
+ -d '{
+    "owner_id": 22,
+    "title": "test",
+  "description": "description",
+  "thumbnail_photo_url": "http://www.google.com",
+  "cover_photo_url": "http://www.google.com",
+  "cost_per_night": 200,
+  "street": "123 fake street",
+  "city": "City",
+  "province": "BC",
+  "post_code": "v11 v22",
+  "country": "Canada",
+  "parking_spaces": 1,
+  "number_of_bathrooms": 1,
+  "number_of_bedrooms": 2,
+  "active": true
+ }' | jq
+```
 
 ## Project structure
 

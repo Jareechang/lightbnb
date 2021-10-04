@@ -28,8 +28,8 @@ export interface PropertyReview {
 }
 
 export interface Property {
-  id: number;
-  owner_id: number;
+  id: string;
+  owner_id: string;
   title: string;
   description: string;
   thumbnail_photo_url: string;

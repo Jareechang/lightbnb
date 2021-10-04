@@ -45,4 +45,14 @@ export class PropertyController {
     );
     return res.status(200).json(properties);
   }
+
+  public async addProperty(
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) {
+    const property : Property = (req.body as Property);
+    const result = await this.propertyService.addProperty(property);
+    res.status(200).json(result);
+  }
 }

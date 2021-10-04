@@ -11,8 +11,7 @@ import {
 
 export default function(
   router: Express.Router,
-  database: any,
-  services: IServices
+  services: IServices,
 ) {
   const reservationController = new ReservationController();
   const propertyController = new PropertyController();

@@ -1,3 +1,5 @@
+const { parsed: config } = dotenv.config();
+
 import * as Express from 'express';
 import express from 'express';
 import path from 'path';
@@ -16,10 +18,7 @@ import { createServices } from '@app/server/services';
 import { createDataAccessInstances } from '@app/server/database/dao';
 import { userRoutes, apiRoutes } from '@app/server/routes';
 
-import database from './mockDatabase';
-
 // Configure environment
-const { parsed: config } = dotenv.config();
 
 // Configure db, services etc
 const databaseInstance : IDatabase = new Database((config as Config));
@@ -38,7 +37,7 @@ app.use(bodyParser.json());
 
 // /api/endpoints
 const apiRouter : Express.Router = express.Router();
-apiRoutes(apiRouter, database, services);
+apiRoutes(apiRouter, services);
 app.use('/api', apiRouter);
 
 // /user/endpoints
@@ -48,12 +47,12 @@ app.use('/users', userRouter);
 
 app.use(express.static(path.join(__dirname, './public')));
 
-app.get("/test", (
+app.get("/healthcheck", (
     req: Express.Request,
     res: Express.Response,
     next: Express.NextFunction,
 ) => {
-  res.send("🤗");
+  res.status(200).json({ status: 'ok' });
 });
 
 const port : string | number = process.env.PORT || 3000;
